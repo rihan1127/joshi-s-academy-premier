@@ -1,7 +1,73 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { PageHero, seoMeta } from "@/components/page-hero";
 import { courses } from "@/content/site";
 
-export const Route = createFileRoute("/courses/")({ head: () => ({ meta: seoMeta("Science Courses in Kharadi | Joshi’s Academy", "Explore CBSE and ICSE Science coaching for Classes IX and X at Joshi’s Academy in Kharadi, Pune.") }), component: Courses });
-function Courses() { return <><PageHero eyebrow="Course directory" title="Science programmes built around understanding." intro="Four focused programmes. One consistent method: clear concepts, disciplined practice, regular testing and personal attention." /><section className="section-shell py-24"><div className="border-t border-border">{courses.map((c,i) => <Link key={c.slug} to="/courses/$slug" params={{slug:c.slug}} className="group grid gap-6 border-b border-border py-10 md:grid-cols-[80px_1fr_1fr_180px] md:items-center"><span className="text-xs text-gold">0{i+1}</span><div><p className="eyebrow text-slate">{c.board}</p><h2 className="mt-2 font-display text-4xl">{c.className}<br />Science</h2></div><div><p className="leading-7 text-slate">{c.description}</p><p className="mt-3 text-xs font-bold">{c.subjects}</p></div><span className="flex items-center gap-2 text-sm font-bold group-hover:text-gold">Explore Course <ArrowRight className="size-4" /></span></Link>)}</div></section></>; }
+export const Route = createFileRoute("/courses/")({
+  head: () => ({
+    meta: seoMeta(
+      "Science Courses in Kharadi | CBSE & ICSE Coaching | Joshi’s Academy",
+      "Explore CBSE and ICSE Science coaching programmes for Classes IX and X at Joshi’s Academy in Kharadi, Pune. Physics, Chemistry and Biology taught with small batches.",
+    ),
+    links: [{ rel: "canonical", href: "https://joshisacademy.com/courses" }],
+  }),
+  component: CoursesDirectoryPage,
+});
+
+function CoursesDirectoryPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Academic Directory"
+        title="Science programmes built around understanding."
+        intro="Four focused programmes. One consistent method: clear concepts, disciplined practice, regular testing and personal attention."
+      />
+
+      <section className="section-shell py-24 md:py-36">
+        <div className="divide-y divide-border border-y border-border">
+          {courses.map((c, i) => (
+            <Link
+              key={c.id}
+              to="/courses/$slug"
+              params={{ slug: c.slug }}
+              className="group grid gap-6 py-12 transition-colors hover:bg-lavender/30 sm:px-6 md:grid-cols-[80px_1.1fr_1.3fr_180px] md:items-center"
+            >
+              <span className="font-sans text-xs font-bold text-violet">0{i + 1}</span>
+
+              <div>
+                <span className="eyebrow text-royal">{c.board}</span>
+                <h2 className="mt-1 font-display text-3xl sm:text-4xl text-ink transition-transform duration-300 group-hover:translate-x-2">
+                  {c.className}
+                  <br />
+                  Science
+                </h2>
+              </div>
+
+              <div>
+                <p className="text-sm leading-relaxed text-muted-foreground max-w-lg">
+                  {c.description}
+                </p>
+                <div className="mt-3 flex items-center gap-3 text-xs font-bold text-ink/80">
+                  <span className="flex items-center gap-1">
+                    <Check className="size-3 text-violet" /> Physics
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Check className="size-3 text-violet" /> Chemistry
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Check className="size-3 text-violet" /> Biology
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-violet group-hover:text-royal transition-colors">
+                <span>Explore Course</span>
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-2" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}

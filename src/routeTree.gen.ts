@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as FacultyRouteImport } from './routes/faculty'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResultsRouteImport } from './routes/results'
@@ -53,6 +54,11 @@ const FacultyRoute = FacultyRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JournalRoute = JournalRouteImport.update({
@@ -108,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/courses': typeof CoursesRouteWithChildren
   '/faculty': typeof FacultyRoute
   '/faq': typeof FaqRoute
+  '/gallery': typeof GalleryRoute
   '/journal': typeof JournalRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/results': typeof ResultsRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/faculty': typeof FacultyRoute
   '/faq': typeof FaqRoute
+  '/gallery': typeof GalleryRoute
   '/privacy': typeof PrivacyRoute
   '/results': typeof ResultsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -141,6 +149,7 @@ export interface FileRoutesById {
   '/courses': typeof CoursesRouteWithChildren
   '/faculty': typeof FacultyRoute
   '/faq': typeof FaqRoute
+  '/gallery': typeof GalleryRoute
   '/journal': typeof JournalRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/results': typeof ResultsRoute
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/courses'
     | '/faculty'
     | '/faq'
+    | '/gallery'
     | '/journal'
     | '/privacy'
     | '/results'
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/faculty'
     | '/faq'
+    | '/gallery'
     | '/privacy'
     | '/results'
     | '/sitemap.xml'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/courses'
     | '/faculty'
     | '/faq'
+    | '/gallery'
     | '/journal'
     | '/privacy'
     | '/results'
@@ -210,6 +222,7 @@ export interface RootRouteChildren {
   CoursesRoute: typeof CoursesRouteWithChildren
   FacultyRoute: typeof FacultyRoute
   FaqRoute: typeof FaqRoute
+  GalleryRoute: typeof GalleryRoute
   JournalRoute: typeof JournalRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   ResultsRoute: typeof ResultsRoute
@@ -259,6 +272,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/journal': {
@@ -360,6 +380,7 @@ const rootRouteChildren: RootRouteChildren = {
   CoursesRoute: CoursesRouteWithChildren,
   FacultyRoute: FacultyRoute,
   FaqRoute: FaqRoute,
+  GalleryRoute: GalleryRoute,
   JournalRoute: JournalRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   ResultsRoute: ResultsRoute,

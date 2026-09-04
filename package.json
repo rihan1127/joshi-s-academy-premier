@@ -87,5 +87,9 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "8.1.5"
+  },
+  "optionalDependencies": {
+    "@oxc-parser/binding-win32-x64-msvc": "^0.120.0",
+    "@rolldown/binding-win32-x64-msvc": "^1.2.1"
   }
 }

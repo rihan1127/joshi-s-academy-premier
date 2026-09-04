@@ -1,24 +1,60 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, ChevronDown, Quote } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import heroImage from "@/assets/classroom-hero.jpg";
+import approachImage from "@/assets/academy-approach.jpg";
+import classroomImage from "@/assets/classroom-wide.jpg";
+import { approach, articles, courses, faqs } from "@/content/site";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({ meta: [
+    { title: "Science Coaching in Kharadi | Joshi’s Academy" },
+    { name: "description", content: "Premium CBSE and ICSE Science classes for Classes IX–X in Kharadi, Pune, with small batches and concept-based learning." },
+    { property: "og:title", content: "Joshi’s Academy — Science, Understood." },
+    { property: "og:description", content: "Specialist Science coaching for CBSE and ICSE students in Kharadi, Pune." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" },
+  ], links: [{ rel: "canonical", href: "https://id-preview--9abde1ff-c22b-4669-b239-b7a3fe6f1344.lovable.app/" }], scripts: [{ type: "application/ld+json", children: JSON.stringify({ "@context": "https://schema.org", "@type": "EducationalOrganization", name: "Joshi’s Academy", slogan: "Gyan Ki Varsha", address: { "@type": "PostalAddress", addressLocality: "Kharadi", addressRegion: "Maharashtra", addressCountry: "IN" }, areaServed: "Pune", description: "Specialist Science coaching for CBSE and ICSE Classes IX–X." }) }] }),
+  component: Home,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+const openEnquiry = () => window.dispatchEvent(new Event("open-enquiry"));
+
+function Home() {
+  const [active, setActive] = useState(0); const [testimonial, setTestimonial] = useState(0);
+  const testimonials = [
+    ["Joshi’s Academy transformed my understanding of science. The personalised attention made all the difference in my board exam preparation.", "Ravi Sharma"],
+    ["The structured notes and small batch sizes at Joshi’s Academy helped me excel in my studies. I highly recommend it for anyone serious about their education.", "Anita Desai"],
+  ];
+  const currentTestimonial = testimonials[testimonial] ?? testimonials[0];
+  if (!currentTestimonial) return null;
+  return <>
+    <section className="relative min-h-[94svh] overflow-hidden bg-ink text-ivory"><img src={heroImage} width={1600} height={1200} fetchPriority="high" className="image-reveal absolute inset-0 size-full object-cover object-center opacity-70" alt="A science teacher leading a focused small-batch classroom demonstration" /><div className="absolute inset-0 bg-[linear-gradient(90deg,var(--ink)_0%,color-mix(in_oklch,var(--ink)_72%,transparent)_45%,transparent_78%)]" /><div className="section-shell relative flex min-h-[94svh] flex-col justify-end pb-12 pt-32 md:pb-16"><p className="eyebrow reveal text-gold">CBSE • ICSE • SCIENCE • IX–X</p><h1 className="reveal mt-5 max-w-4xl font-display text-[clamp(3.4rem,11vw,10.5rem)] leading-[.82]" style={{ animationDelay: "120ms" }}>Science,<br /><em className="font-normal">Understood.</em></h1><div className="mt-10 grid gap-8 md:grid-cols-[minmax(0,640px)_1fr] md:items-end"><div className="reveal" style={{ animationDelay: "240ms" }}><p className="max-w-xl text-base leading-7 text-ivory/80 md:text-lg">Personalised Science coaching for CBSE and ICSE students in Pune, with small batches, structured learning, regular testing and dedicated doubt-solving.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row"><Button variant="hero" size="lg" onClick={openEnquiry}>Book a Free Counselling Session <ArrowRight /></Button><Button variant="heroOutline" size="lg" asChild><Link to="/courses">Explore Courses</Link></Button></div></div><div className="hidden justify-end gap-12 text-right md:flex"><div><p className="eyebrow text-ivory/45">Institution</p><p className="mt-2 text-xs">JOSHI’S ACADEMY</p></div><div><p className="eyebrow text-ivory/45">Location</p><p className="mt-2 text-xs">KHARADI • PUNE</p></div></div></div></div></section>
+
+    <section className="border-b border-border bg-ivory"><div className="section-shell grid md:grid-cols-4">{[["100+", "Students Passed Out"], ["25+", "Students Scored 90%+"], ["CBSE + ICSE", "Science Focus"], ["Small Batches", "Personalised Attention"]].map(([n,l]) => <div key={l} className="border-b border-border py-8 md:border-b-0 md:border-r md:px-8 first:pl-0 last:border-r-0"><p className="font-display text-3xl">{n}</p><p className="mt-2 text-xs text-slate">{l}</p></div>)}</div></section>
+
+    <section className="section-shell grid gap-14 py-24 md:grid-cols-[.9fr_1.1fr] md:py-36"><div className="md:sticky md:top-28 md:self-start"><p className="eyebrow text-gold">The Joshi’s approach</p><h2 className="mt-6 max-w-2xl font-display text-5xl leading-[.98] md:text-7xl">Science becomes easier when concepts become clear.</h2><p className="mt-8 max-w-xl leading-7 text-slate">We slow down where understanding needs time, connect ideas across chapters, and use regular practice to turn clarity into confidence. The aim is not simply to complete the syllabus—it is to help every student think scientifically.</p></div><figure className="md:pt-32"><img src={approachImage} width={1200} height={1504} loading="lazy" className="aspect-[4/5] w-full object-cover" alt="Science teacher explaining a physics concept to two students" /><figcaption className="mt-4 border-t border-border pt-3 text-xs text-slate">Focused teaching. Thoughtful questions. Real understanding.</figcaption></figure></section>
+
+    <section className="bg-ink py-24 text-ivory md:py-36"><div className="section-shell"><p className="eyebrow text-gold">Why Joshi’s Academy</p><div className="mt-6 grid gap-12 lg:grid-cols-[1fr_.8fr]"><div><h2 className="mb-12 max-w-3xl font-display text-5xl md:text-7xl">A different approach to Science education.</h2>{approach.map(([title, desc], i) => <button key={title} className="group w-full border-t border-ivory/20 py-6 text-left" onMouseEnter={() => setActive(i)} onFocus={() => setActive(i)} onClick={() => setActive(i)} aria-expanded={active === i}><div className="flex items-baseline gap-5"><span className="text-xs text-gold">0{i + 1}</span><h3 className={`font-display text-2xl transition-colors md:text-4xl ${active === i ? "text-ivory" : "text-ivory/45"}`}>{title}</h3></div><div className={`grid transition-all duration-500 ${active === i ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}><p className="ml-10 mt-4 max-w-xl overflow-hidden text-sm leading-6 text-ivory/65">{desc}</p></div></button>)}</div><div className="relative hidden min-h-[650px] lg:block"><img src={active % 2 === 0 ? approachImage : classroomImage} width={1200} height={1504} loading="lazy" className="sticky top-28 aspect-[3/4] w-full object-cover transition-opacity" alt="Focused science learning at Joshi’s Academy" /><span className="absolute bottom-5 left-5 border border-ivory/25 bg-ink/75 px-4 py-2 text-xs backdrop-blur">0{active + 1} / 06</span></div></div></div></section>
+
+    <section className="section-shell py-24 md:py-36"><p className="eyebrow text-gold">The Sciences</p><h2 className="mt-6 font-display text-5xl md:text-8xl">Physics. Chemistry. Biology.</h2><p className="mt-5 text-lg text-slate">Three disciplines. One foundation: understanding.</p><div className="mt-20 divide-y divide-border border-y border-border">{[["PHYSICS","Principles • Numericals • Application","F = ma"],["CHEMISTRY","Concepts • Reactions • Problem Solving","H₂O"],["BIOLOGY","Concepts • Diagrams • Understanding","DNA"]].map(([title, desc, mark], i) => <div key={title} className="group grid items-center gap-6 py-9 md:grid-cols-[80px_1fr_1fr_120px]"><span className="text-xs text-gold">0{i+1}</span><h3 className="font-display text-4xl transition-transform duration-500 group-hover:translate-x-3 md:text-6xl">{title}</h3><p className="text-sm text-slate">{desc}</p><span className="text-right font-display text-3xl text-gold/30">{mark}</span></div>)}</div></section>
+
+    <section className="bg-muted py-24 md:py-40"><div className="section-shell"><p className="eyebrow text-gold">Teaching philosophy</p><blockquote className="mt-8 max-w-6xl font-display text-5xl leading-[1.02] md:text-8xl">We don’t teach students<br /><em>what to remember.</em><br /><br />We teach them<br /><em>how to understand.</em></blockquote><p className="mt-12 max-w-xl border-l border-gold pl-6 leading-7 text-slate">Understanding changes the way students approach unfamiliar questions. It gives them the confidence to reason, apply and explain—skills that matter well beyond one examination.</p></div></section>
+
+    <section className="overflow-hidden bg-ivory py-24 md:py-36"><div className="section-shell"><p className="eyebrow text-gold">The Joshi’s method</p><h2 className="mt-6 font-display text-5xl md:text-7xl">A connected journey to confidence.</h2><div className="mt-20 flex min-w-max items-start">{[["UNDERSTAND","Build conceptual clarity."],["PRACTICE","Apply concepts."],["TEST","Measure understanding."],["ANALYSE","Identify weak areas."],["IMPROVE","Targeted support."],["PERFORM","Build board confidence."]].map(([t,d],i) => <div key={t} className="relative w-[260px] border-t border-ink/30 pt-8 md:w-[340px]"><span className="absolute -top-2 left-0 size-4 border border-gold bg-ivory" /><p className="text-xs text-gold">0{i+1}</p><h3 className="mt-6 font-display text-3xl">{t}</h3><p className="mt-3 text-sm text-slate">{d}</p></div>)}</div></div></section>
+
+    <section className="bg-ink py-24 text-ivory md:py-36"><div className="section-shell"><div className="grid gap-12 md:grid-cols-[1fr_1.1fr]"><div><p className="eyebrow text-gold">Results</p><h2 className="mt-6 font-display text-5xl md:text-7xl">Results are a reflection of understanding.</h2></div><div className="border-l border-ivory/20 pl-8 md:pl-14"><p className="font-display text-8xl text-gold">25+</p><p className="mt-3 max-w-lg text-xl">Students scored 90%+ in CBSE Class X Board Examination.</p><div className="mt-12 grid grid-cols-2 gap-8 border-t border-ivory/20 pt-8"><div><strong className="font-display text-5xl">50%</strong><p className="mt-2 text-sm text-ivory/55">of the 2024–25 batch scored above 90%.</p></div><div><strong className="font-display text-5xl">85%+</strong><p className="mt-2 text-sm text-ivory/55">for the remaining students.</p></div></div><Link to="/results" className="mt-10 inline-flex items-center gap-2 text-sm text-gold">View results context <ArrowRight className="size-4" /></Link></div></div></div></section>
+
+    <section className="section-shell py-24 md:py-36"><div className="grid gap-12 md:grid-cols-[.45fr_1fr]"><div><Quote className="size-12 text-gold" /><p className="mt-8 text-xs text-slate">Verified testimonials provided for publication.</p></div><div><blockquote className="font-display text-4xl leading-tight md:text-6xl">“{currentTestimonial[0]}”</blockquote><p className="mt-8 text-sm font-bold">— {currentTestimonial[1]}</p><div className="mt-10 flex gap-2">{testimonials.map((_,i) => <button key={i} aria-label={`Show testimonial ${i+1}`} onClick={() => setTestimonial(i)} className={`h-px w-16 ${testimonial === i ? "bg-gold" : "bg-border"}`} />)}</div></div></div></section>
+
+    <section className="relative min-h-[75svh] overflow-hidden"><img src={classroomImage} width={1600} height={1008} loading="lazy" className="absolute inset-0 size-full object-cover transition-transform duration-1000 hover:scale-[1.02]" alt="Students learning Biology in a focused classroom" /><div className="absolute inset-0 bg-ink/45" /><div className="section-shell relative flex min-h-[75svh] items-end pb-16 text-ivory"><h2 className="max-w-3xl font-display text-6xl md:text-8xl">Small batches.<br />Focused attention.<br /><em>Better learning.</em></h2></div></section>
+
+    <section className="section-shell py-24 md:py-36"><p className="eyebrow text-gold">Courses</p><h2 className="mt-6 font-display text-5xl md:text-7xl">Choose the right Science programme.</h2><div className="mt-16 border-t border-border">{courses.map((course,i) => <Link key={course.slug} to="/courses/$slug" params={{slug:course.slug}} className="group grid gap-5 border-b border-border py-8 transition-colors hover:bg-muted md:grid-cols-[70px_1fr_1fr_160px] md:items-center md:px-4"><span className="text-xs text-gold">0{i+1}</span><div><p className="text-xs font-bold">{course.board}</p><h3 className="mt-1 font-display text-3xl">{course.className} Science</h3></div><p className="max-w-md text-sm leading-6 text-slate">{course.description}</p><span className="flex items-center gap-2 text-sm font-bold">Explore Course <ArrowRight className="size-4 transition-transform group-hover:translate-x-2" /></span></Link>)}</div></section>
+
+    <section className="bg-muted py-24 md:py-36"><div className="section-shell"><div className="flex flex-col justify-between gap-6 md:flex-row md:items-end"><div><p className="eyebrow text-gold">The Joshi’s Journal</p><h2 className="mt-6 font-display text-5xl md:text-7xl">Thinking clearly about Science.</h2></div><Link to="/journal" className="flex items-center gap-2 text-sm font-bold">Read the journal <ArrowRight className="size-4" /></Link></div><div className="mt-16 grid gap-px bg-border md:grid-cols-2">{articles.slice(0,4).map((a,i) => <Link key={a.slug} to="/journal/$slug" params={{slug:a.slug}} className="group bg-muted p-8 md:p-12"><p className="eyebrow text-gold">{a.category} • 0{i+1}</p><h3 className="mt-8 max-w-lg font-display text-3xl group-hover:text-gold md:text-4xl">{a.title}</h3><p className="mt-5 max-w-lg text-sm leading-6 text-slate">{a.excerpt}</p></Link>)}</div></div></section>
+
+    <section className="section-shell py-24 md:py-36"><div className="grid gap-16 lg:grid-cols-[.7fr_1fr]"><div><p className="eyebrow text-gold">Frequently asked</p><h2 className="mt-6 font-display text-5xl md:text-7xl">Questions, answered clearly.</h2><Button className="mt-10" onClick={openEnquiry}>Speak with our academic team <ArrowRight /></Button></div><div>{faqs.map(([q,a]) => <details key={q} className="group border-t border-border py-6 last:border-b"><summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-2xl">{q}<ChevronDown className="size-5 shrink-0 transition-transform group-open:rotate-180" /></summary><p className="max-w-2xl pt-5 text-sm leading-7 text-slate">{a}</p></details>)}</div></div></section>
+
+    <section className="bg-ink py-24 text-ivory md:py-36"><div className="section-shell"><p className="eyebrow text-gold">Your next step</p><h2 className="mt-7 max-w-5xl font-display text-6xl leading-none md:text-8xl">Your child’s next academic step starts with <em>understanding.</em></h2><p className="mt-8 text-lg text-ivory/60">Talk to Joshi’s Academy about the right Science programme.</p><div className="mt-10 flex flex-col gap-3 sm:flex-row"><Button variant="hero" size="lg" onClick={openEnquiry}>Book a Free Counselling Session <ArrowRight /></Button><Button variant="heroOutline" size="lg" disabled>WhatsApp Us</Button></div></div></section>
+  </>;
 }

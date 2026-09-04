@@ -394,7 +394,8 @@ function Footer({ onEnquire }: { onEnquire: () => void }) {
                 </span>
                 <span className="text-[12px] leading-relaxed">
                   Kharadi, Pune,
-                  <br />Maharashtra, India
+                  <br />
+                  Maharashtra, India
                 </span>
               </div>
             </div>
@@ -470,4 +471,3 @@ function Footer({ onEnquire }: { onEnquire: () => void }) {
     </footer>
   );
 }
-

@@ -44,10 +44,7 @@ function ContactPage() {
             {/* Contact rows */}
             <div className="border-t border-border pt-8 space-y-5">
               {/* Phone */}
-              <a
-                href={`tel:${site.phone}`}
-                className="flex items-center gap-4 group"
-              >
+              <a href={`tel:${site.phone}`} className="flex items-center gap-4 group">
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-lavender/30 group-hover:bg-violet group-hover:border-violet transition-colors">
                   <Phone className="size-4 text-violet group-hover:text-ivory transition-colors" />
                 </span>

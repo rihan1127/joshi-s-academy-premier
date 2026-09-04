@@ -1,0 +1,7 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight } from "lucide-react";
+import { PageHero, seoMeta } from "@/components/page-hero";
+import { courses } from "@/content/site";
+
+export const Route = createFileRoute("/courses/")({ head: () => ({ meta: seoMeta("Science Courses in Kharadi | Joshi’s Academy", "Explore CBSE and ICSE Science coaching for Classes IX and X at Joshi’s Academy in Kharadi, Pune.") }), component: Courses });
+function Courses() { return <><PageHero eyebrow="Course directory" title="Science programmes built around understanding." intro="Four focused programmes. One consistent method: clear concepts, disciplined practice, regular testing and personal attention." /><section className="section-shell py-24"><div className="border-t border-border">{courses.map((c,i) => <Link key={c.slug} to="/courses/$slug" params={{slug:c.slug}} className="group grid gap-6 border-b border-border py-10 md:grid-cols-[80px_1fr_1fr_180px] md:items-center"><span className="text-xs text-gold">0{i+1}</span><div><p className="eyebrow text-slate">{c.board}</p><h2 className="mt-2 font-display text-4xl">{c.className}<br />Science</h2></div><div><p className="leading-7 text-slate">{c.description}</p><p className="mt-3 text-xs font-bold">{c.subjects}</p></div><span className="flex items-center gap-2 text-sm font-bold group-hover:text-gold">Explore Course <ArrowRight className="size-4" /></span></Link>)}</div></section></>; }

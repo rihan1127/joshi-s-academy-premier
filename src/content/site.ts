@@ -28,9 +28,10 @@ export const site = {
   tagline: "Gyan Ki Varsha",
   location: "Kharadi, Pune, Maharashtra",
   addressDisplay: "Kharadi, Pune, Maharashtra, India",
-  phone: "",
-  whatsapp: "",
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Kharadi%2C+Pune%2C+Maharashtra",
+  phone: "07030554317",
+  whatsapp: "07030554317",
+  mapsUrl: "https://maps.google.com/maps?ftid=0xda91b9aaa8e08e7:0xa2245a5b43016f88",
+  mapsEmbed: "https://maps.google.com/maps?q=joshi%27s+academy+kharadi+pune&output=embed",
   description:
     "Specialist CBSE and ICSE Science coaching for Classes IX and X in Kharadi, Pune, with small batches, personalised attention, and concept-first methodology.",
 };

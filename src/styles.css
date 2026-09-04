@@ -215,3 +215,62 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ─── Dual-Ring Spinner ─────────────────────────────────────────────────── */
+
+@keyframes spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlay-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Ring elements rotate around SVG center using transform-box */
+.ring-outer {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin-cw 1s linear infinite;
+}
+
+.ring-inner {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: spin-ccw 0.7s linear infinite;
+}
+
+.spinner-overlay-enter {
+  animation: overlay-in 160ms ease-out forwards;
+}
+
+.spinner-overlay-exit {
+  animation: overlay-out 260ms ease-in forwards;
+}
